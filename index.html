@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="index.js"> -->
+    <title>Tugas</title>
+</head>
+<body>
+    <h1> Tugas 4</h1>
+    <p> 1. Get</p>
+    <p> 2. Post</p>
+    <p> 3. Put</p>
+    <p> 4. Delete</p>
+    <p> 5. API yang diakses menggunakan token</p>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        //1. Get
+        axios.get('https://dummyjson.com/todos/1')
+        .then(response => {
+        // Menangani respons dari server
+            console.log("Response:", response.data);
+        })
+
+        //2. Post
+        const postData = {
+            id: 151,
+            todo: "Use DummyJSON in the project",
+            completed: false,
+            userId: 5
+}
+        axios.post('https://dummyjson.com/todos/add', postData)
+        .then(response => {
+        // Menangani respons dari server
+            console.log("Response:", response.data);
+        })
+
+        //3. Put
+        const putData = {
+            id: "1",
+            todo: "Do something nice for someone I care about",
+            completed: false, // complete status was changed
+            userId: 26
+        }
+        axios.put('https://dummyjson.com/todos/1', putData)
+        .then(response => {
+        // Menangani respons dari server
+            console.log("Response:", response.data);
+        })
+
+        //4. Delete
+        axios.delete('https://dummyjson.com/todos/1')
+        .then(response => {
+        // Menangani respons dari server
+            console.log("Response:", response.data);
+        })
+
+
+        //5. // Mengambil token menggunakan Axios
+        axios.post('https://dummyjson.com/auth/login', {
+            username: 'emilys',
+            password: 'emilyspass'
+        })
+        //Setelah login, buat constanta token untuk akses isi dari username dan pass tsb
+        const token = axios.create({
+            baseURL:'https://dummyjson.com/auth/me',
+            headers:{
+                'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3MTY2MzA3NzEsImV4cCI6MTcxNjYzNDM3MX0.FNtgZ72GO068l2ZirpJ8OJGoh66Z-lOrvYVZBx08vhQ'
+            }
+        })
+        token.get()
+        .then(res => console.log(res.data))
+    </script>
+</body>
+</html>
