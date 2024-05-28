@@ -21,24 +21,32 @@
         // Menangani respons dari server
             console.log("Response:", response.data);
         })
+        .catch(error => {
+        // Menangani error dari server
+            console.error('Error:', error);
+        })
 
         //2. Post
         const postData = {
             id: 151,
-            todo: "Use DummyJSON in the project",
+            todo: "Use DummyJSON in the project Alya",
             completed: false,
             userId: 5
-}
+        }
         axios.post('https://dummyjson.com/todos/add', postData)
         .then(response => {
         // Menangani respons dari server
             console.log("Response:", response.data);
         })
+        .catch(error => {
+        // Menangani error dari server
+            console.error('Error:', error);
+        })
 
         //3. Put
         const putData = {
             id: "1",
-            todo: "Do something nice for someone I care about",
+            todo: "Do something nice for me",
             completed: false, // complete status was changed
             userId: 26
         }
@@ -47,12 +55,20 @@
         // Menangani respons dari server
             console.log("Response:", response.data);
         })
+        .catch(error => {
+        // Menangani error dari server
+            console.error('Error:', error);
+        })
 
         //4. Delete
         axios.delete('https://dummyjson.com/todos/1')
         .then(response => {
         // Menangani respons dari server
             console.log("Response:", response.data);
+        })
+        .catch(error => {
+        // Menangani error dari server
+            console.error('Error:', error);
         })
 
 
@@ -61,15 +77,28 @@
             username: 'emilys',
             password: 'emilyspass'
         })
-        //Setelah login, buat constanta token untuk akses isi dari username dan pass tsb
-        const token = axios.create({
-            baseURL:'https://dummyjson.com/auth/me',
-            headers:{
-                'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3MTY2MzA3NzEsImV4cCI6MTcxNjYzNDM3MX0.FNtgZ72GO068l2ZirpJ8OJGoh66Z-lOrvYVZBx08vhQ'
-            }
+        .then(res =>{ 
+            axios.get('https://dummyjson.com/auth/me', {
+                headers: {
+                    authorization : 'Bearer ' + res.data.token //digabung biar tokennya ga ganti ganti, karna yang sebelumnya tokennya pasti ganti trs tiap dirun
+                }
+            })
+            .then(res => console.log(res.data))
         })
-        token.get()
-        .then(res => console.log(res.data))
+
+
+
+
+        // //Setelah login, buat constanta token untuk akses isi dari username dan pass tsb
+        // const token = axios.create({
+        //     baseURL:'https://dummyjson.com/auth/me',
+        //     headers:{
+        //         'Authorization':'Bearer'
+
+        //     }
+        // })
+        // token.get()
+        // .then(res => console.log(res.data))
     </script>
 </body>
 </html>
